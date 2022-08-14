@@ -1,5 +1,5 @@
 data:
-  data_dir: 'C:/Users/Ellie/Desktop/Avi/Parnasa/case_study/split_data_file'
+  data_dir: './data/split_data_file'
   data_file: null
 etl:
   age_col: 'age'
