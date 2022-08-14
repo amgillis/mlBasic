@@ -1,0 +1,33 @@
+data:
+  data_dir: 'C:/Users/Ellie/Desktop/Avi/Parnasa/case_study/split_data_file'
+  data_file: null
+etl:
+  age_col: 'age'
+  age_bins: 10
+  cols: ['age','job','marital','education','default','housing','loan','contact','month','day_of_week',
+'duration','campaign','pdays','previous','poutcome','emp.var.rate','cons.price.idx','cons.conf.idx',
+'euribor3m','nr.employed','y']
+  num_cols: ['age','duration','campaign','pdays','previous','emp.var.rate','cons.price.idx','cons.conf.idx',
+'euribor3m','nr.employed']
+  cat_cols: ['job','marital','education','default','housing','loan','contact','month','day_of_week','poutcome','y']
+preprocessing:
+  scaler: 'standard'
+  # standard, min-max
+  encoding: {'job': 'one-hot', 'marital': 'one-hot', 'education': 'ordinal', 'default': 'one-hot', 'housing': 'one-hot',
+             'loan': 'one-hot', 'contact': 'one-hot', 'month': 'ordinal', 'day_of_week': 'ordinal',
+             'poutcome': 'one-hot'}
+  # one-hot, ordinal (specify order in ordinal_encodings)
+  ordinal_encodings: {'education': {'illiterate': '1', 'basic.4y': '2', 'basic.6y': '3', 'basic.9y': '4',
+                                    'high.school': '5', 'professional.course': '6', 'university.degree': '7',
+                                    'unknown': '0'},
+                      'month': {'jan': '1', 'feb': '2', 'mar': '3', 'apr': '4', 'may': '5', 'jun': '6', 'jul': '7',
+                                'aug': '8', 'sep': '9', 'oct': '10', 'nov': '11', 'dec': '12'},
+                      'day_of_week': {'mon': '1', 'tue': '2', 'wed': '3', 'thu': '4', 'fri': '5', 'sat': '6', 'sun': '7'}}
+  split: {train: 0.6, val: 0.2, test: 0.2}
+  label_col: 'y'
+  label_encoding: {'yes': '1', 'no': '0'}
+model:
+  algorithm: 'Logistic Regression'
+  rf_grid_search: {'max_depth': [2, 5, 8], 'class_weight': [1, 5, 10, 15]}
+  lr_grid_search: {C: [0.5, 1], 'class_weight': [1, 10]}
+

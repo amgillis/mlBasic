@@ -1,0 +1,5 @@
+/logs/
+/notebooks/.ipynb_checkpoints/
+/.ipynb_checkpoints/
+/venv/
+/outputs/
