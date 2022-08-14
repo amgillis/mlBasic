@@ -12,7 +12,7 @@ def score_predictions(ytrue, ypred, logger: Logger):
     try:
         scores['acc'] = accuracy_score(ytrue, ypred)
         scores['f1'] = f1_score(ytrue, ypred)
-        scores['avgprec'] = average_precision_score(ytrue, ypred)
+        scores['roc_auc'] = roc_auc_score(ytrue, ypred)
 
         logger.info(f'Test scores: {scores}')
     except Exception as e:
@@ -60,7 +60,7 @@ def plot_precision_recall_curve(ytrue, ypred, output_dir):
     precision, recall, thresh = precision_recall_curve(ytrue, ypred)
     avgprec = average_precision_score(ytrue, ypred)
 
-    fig, ax = plt.subplots(1, 1, figsize=(10,7))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 7))
     plt.plot([0, 1], [1, 0], 'k--')
     plt.plot(precision, recall, label=f'Avg Precision Score = {avgprec:.3f}')
     ax.set_xlabel('Precision')
@@ -75,6 +75,7 @@ def run_eval(ytrue, ypred, output_dir, logger):
     cr = get_classification_report(ytrue, ypred, logger)
     cm = plot_cm(ytrue, ypred, output_dir)
     plot_roc_curve(ytrue, ypred, output_dir)
+    plot_precision_recall_curve(ytrue, ypred, output_dir)
     
     return scores, cr, cm
 
